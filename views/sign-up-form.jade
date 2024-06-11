@@ -2,21 +2,25 @@ extends layout
 
 block content
     h1 Sign up
-    h1 Please log in 
-    form(method="POST")
+    form(method="POST", action="/members-only/sign-up")
         div.sign-up
             label(for="firstName") First name
-            input#firstName(type='text', placeholder="First name", name="firstName")
+            input#firstName(type='text', placeholder="First name", name="firstName", value=(user && user.firstName) ? user.firstName : '')
         div.sign-up
             label(for="lastName") Last name
-            input#lastName(type='text', placeholder="Last name", name="lastName")
+            input#lastName(type='text', placeholder="Last name", name="lastName", value=(user && user.lastName) ? user.lastName : '')
         div.sign-up
             label(for="username") Username
-            input#username(type='text', placeholder="Username", name="username")
+            input#username(type='text', placeholder="Username", name="username", value=(user && user.username) ? user.username : '')
         div.sign-up
             label(for="password") Password
             input#password(type='password', placeholder="Password", name="password")
         div.sign-up
             label(for="membershipStatus") Membership status
-            input#membershipStatus(type='text', placeholder="Membership status", name="membershipStatus")
-        button Log in
+            input#membershipStatus(type='text', placeholder="Membership status", name="membershipStatus", value=(user && user.membershipStatus) ? user.membershipStatus : '')
+        button(type="submit") Sign up
+        
+    if errors && errors.length > 0
+        ul.text-danger
+            each error in errors
+                li= error.msg
