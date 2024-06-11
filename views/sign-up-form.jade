@@ -15,9 +15,6 @@ block content
         div.sign-up
             label(for="password") Password
             input#password(type='password', placeholder="Password", name="password")
-        div.sign-up
-            label(for="membershipStatus") Membership status
-            input#membershipStatus(type='text', placeholder="Membership status", name="membershipStatus", value=(user && user.membershipStatus) ? user.membershipStatus : '')
         button(type="submit") Sign up
         
     if errors && errors.length > 0

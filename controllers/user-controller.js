@@ -28,10 +28,6 @@ exports.user_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("membershipStatus", "Membership status")
-    .trim()
-    .isLength({ min: 1 })
-    .escape(),
 
   asyncHandler(async (req, res, next) => {
     const errors = validationResult(req);
@@ -55,7 +51,7 @@ exports.user_create_post = [
           lastName: req.body.lastName,
           username: req.body.username,
           password: hashedPassword,
-          membershipStatus: req.body.membershipStatus,
+          membershipStatus: "non-member",
         });
         await user.save();
         res.redirect("/");
