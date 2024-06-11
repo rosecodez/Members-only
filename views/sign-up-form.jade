@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Sign up
+    h1 Please log in 
+    form(method="POST")
+        div.sign-up
+            label(for="firstName") First name
+            input#firstName(type='text', placeholder="First name", name="firstName")
+        div.sign-up
+            label(for="lastName") Last name
+            input#firstName(type='text', placeholder="Last name", name="lastName")
+        div.sign-up
+            label(for="username") Username
+            input#firstName(type='text', placeholder="Username", name="username")
+        div.sign-up
+            label(for="password") Password
+            input#firstName(type='password', placeholder="Password", name="password")
+        div.sign-up
+            label(for="membershipStatus") Membership status
+            input#firstName(type='text', placeholder="Membership status", name="membershipStatus")
+        button Log in
