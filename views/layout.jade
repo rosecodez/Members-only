@@ -19,7 +19,11 @@ html(lang='en')
               a.nav-link(href='/members-only/sign-up') Sign Up
             li.nav-item
               a.nav-link(href='/members-only/log-in') Log in
-
+    if user
+      p Welcome, #{user.firstName} #{user.lastName}!
+    else
+      p Welcome, Guest!
+      
       div.row
         div.col-sm-10
           block content

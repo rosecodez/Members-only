@@ -3,8 +3,8 @@ extends layout
 block content
     h1 Sign up
     h6 Already have an account? 
-        a#log-in(href='/log-in') Log in
-    form(method="POST", action="/sign-up")
+        a#log-in(href='/members-only/log-in') Log in
+    form(method="POST", action="/members-only/sign-up")
         div.h5.sign-up
             label.form-label(for="firstName") First name
             input.form-control#firstName(type='text', placeholder="First name", name="firstName", value=(user && user.firstName) ? user.firstName : '')

@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h2 #{user.firstName} #{user.lastName} #{user.username} #{user.membershipStatus} 
+  p
+    h3= title
+    | firstName: #{user.firstName}
+    br
+    | lastName: #{user.lastName}
+    br
+    | username: #{user.username}
+    br
+    | membershipStatus: #{user.membershipStatus}

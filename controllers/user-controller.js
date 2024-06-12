@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs");
 const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
+let logger = require("morgan");
 
 exports.user_create_get = asyncHandler(async (req, res, next) => {
   res.render("sign-up-form");
@@ -32,31 +33,34 @@ exports.user_create_post = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      // if there are errors, render sign up form again
-      res.render("sign-up-form", {
+      return res.status(400).render("sign-up-form", {
         errors: errors.array(),
         user: req.body,
       });
-      return;
     }
-    try {
-      bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
-        if (err) {
-          return next(err);
-        }
 
-        const user = new User({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          username: req.body.username,
-          password: hashedPassword,
-          membershipStatus: "non-member",
+    try {
+      const existingUser = await User.findOne({ username: req.body.username });
+      if (existingUser) {
+        return res.status(400).render("sign-up-form", {
+          errors: [{ msg: "Username already taken" }],
+          user: req.body,
         });
-        await user.save();
-        res.redirect("/");
+      }
+
+      const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      const user = new User({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        username: req.body.username,
+        password: hashedPassword,
+        membershipStatus: "non-member",
       });
+
+      await user.save();
+      res.redirect("/");
     } catch (err) {
-      return next(err);
+      next(err);
     }
   }),
 ];
@@ -100,12 +104,22 @@ exports.user_login_get = asyncHandler(async (req, res, next) => {
   res.render("log-in-form");
 });
 
-exports.user_login_post = passport.authenticate("local", {
-  successRedirect: "/",
-  failureRedirect: "/members-only/log-in",
-});
+exports.user_login_post = [
+  passport.authenticate("local", {
+    successRedirect: "/members-only/user-details",
+    failureRedirect: "/members-only/log-in",
+  }),
+];
 
 exports.user_logout_get = asyncHandler(async (req, res, next) => {
   req.logout();
   res.redirect("/");
+});
+
+exports.user_details_get = asyncHandler(async (req, res, next) => {
+  if (req.isAuthenticated()) {
+    res.render("user-details", { user: req.user });
+  } else {
+    res.redirect("/members-only/log-in");
+  }
 });
