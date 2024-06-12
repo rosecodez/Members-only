@@ -2,6 +2,9 @@ const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const session = require("express-session");
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 
 exports.user_create_get = asyncHandler(async (req, res, next) => {
   res.render("sign-up-form");
@@ -23,10 +26,6 @@ exports.user_create_post = [
   body("password", "Password must be specified")
     .trim()
     .isLength({ min: 10 })
-    .escape(),
-  body("password", "Password name must be specified")
-    .trim()
-    .isLength({ min: 1 })
     .escape(),
 
   asyncHandler(async (req, res, next) => {
@@ -61,3 +60,52 @@ exports.user_create_post = [
     }
   }),
 ];
+
+passport.use(
+  new LocalStrategy(async (username, password, done) => {
+    try {
+      const user = await User.findOne({ username });
+      if (!user) {
+        return done(null, false, {
+          message: "Incorrect username or password.",
+        });
+      }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return done(null, false, {
+          message: "Incorrect username or password.",
+        });
+      }
+      return done(null, user);
+    } catch (err) {
+      return done(err);
+    }
+  })
+);
+
+passport.serializeUser((user, done) => {
+  done(null, user.id);
+});
+
+passport.deserializeUser(async (id, done) => {
+  try {
+    const user = await User.findById(id);
+    done(null, user);
+  } catch (err) {
+    done(err);
+  }
+});
+
+exports.user_login_get = asyncHandler(async (req, res, next) => {
+  res.render("log-in-form");
+});
+
+exports.user_login_post = passport.authenticate("local", {
+  successRedirect: "/",
+  failureRedirect: "/members-only/log-in",
+});
+
+exports.user_logout_get = asyncHandler(async (req, res, next) => {
+  req.logout();
+  res.redirect("/");
+});
