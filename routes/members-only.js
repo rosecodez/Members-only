@@ -22,5 +22,6 @@ router.get("/user-details", userController.user_details_get);
 // 2. message controller
 router.get("/new-message", messageController.message_create_get);
 router.post("/new-message", messageController.message_create_post);
+router.get("/message-list", messageController.message_list);
 
 module.exports = router;

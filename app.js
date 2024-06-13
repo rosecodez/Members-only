@@ -8,10 +8,8 @@ const session = require("express-session");
 const passport = require("passport");
 require("dotenv").config();
 
-const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const membersOnlyRouter = require("./routes/members-only");
-const userController = require("./controllers/user-controller");
 
 const app = express();
 
@@ -50,7 +48,6 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/members-only", membersOnlyRouter);
 

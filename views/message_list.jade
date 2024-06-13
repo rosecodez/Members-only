@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 All messages
+  ul
+    each message in messageList
+      li
+        p Title: #{message.title} 
+        p Posted on: #{message.timestamp}
+        p Text: #{message.text} 
+        p User: #{message.user}
+        br

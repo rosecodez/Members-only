@@ -38,3 +38,9 @@ exports.message_create_post = [
     }
   }),
 ];
+
+exports.message_list = asyncHandler(async (req, res, next) => {
+  const allMessages = await Message.find().sort({ timestamp: 1 }).exec();
+
+  res.render("message_list", { messageList: allMessages });
+});
