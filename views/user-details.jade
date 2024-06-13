@@ -1,13 +1,14 @@
 extends layout
 
 block content
-  h2 #{user.firstName} #{user.lastName} #{user.username} #{user.membershipStatus} 
+  h2 Your profile
+  h4 #{user.firstName} #{user.lastName} #{user.username}, #{user.membershipStatus} 
   p
     h3= title
-    | firstName: #{user.firstName}
-    br
-    | lastName: #{user.lastName}
-    br
-    | username: #{user.username}
-    br
-    | membershipStatus: #{user.membershipStatus}
+    p First name: #{user.firstName}
+    p Last name: #{user.lastName}
+    p Username: #{user.username}
+    p Membership status: #{user.membershipStatus}
+    a.user-details-links(href='/members-only/new-message') Create new message
+    p Would you like to join our club?
+    a.user-details-links(href='/members-only/log-out') Log out

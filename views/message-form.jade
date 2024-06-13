@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  h6 New message
+  form(method="POST", action="/members-only/new-message")
+    div.form-group
+      label(for="title") Title
+      input.form-control(type='text', id='title', placeholder="Title", name="title" required="true")
+      
+      label(for="message") Message
+      textarea.form-control(type='text', id='message', rows="3", placeholder="New message", name="text" required="true")
+
+    button.btn.btn-primary(type="submit") Send message

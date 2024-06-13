@@ -112,8 +112,12 @@ exports.user_login_post = [
 ];
 
 exports.user_logout_get = asyncHandler(async (req, res, next) => {
-  req.logout();
-  res.redirect("/");
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/members-only/log-in");
+  });
 });
 
 exports.user_details_get = asyncHandler(async (req, res, next) => {
@@ -123,3 +127,8 @@ exports.user_details_get = asyncHandler(async (req, res, next) => {
     res.redirect("/members-only/log-in");
   }
 });
+
+exports.getUserId = (req) => {
+  console.log(req.session.passport.user);
+  return req.session.passport.user;
+};
