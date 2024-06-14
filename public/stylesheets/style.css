@@ -6,3 +6,18 @@ body {
 a {
   color: #00B7FF;
 }
+
+ul {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-width: 550px;
+}
+.messageList {
+  background-color: #068affb5;
+  padding-top: 20px;
+  padding-left: 20px;
+  list-style-type: none;
+  border-radius: 25px;
+}
