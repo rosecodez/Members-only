@@ -1,4 +1,5 @@
 const Message = require("../models/message");
+const User = require("../models/user");
 const asyncHandler = require("express-async-handler");
 const { body, validationResult } = require("express-validator");
 const { getUserId } = require("./user-controller");
@@ -23,12 +24,13 @@ exports.message_create_post = [
 
     try {
       const userId = getUserId(req);
-
+      const user = await User.findById(userId);
       const message = new Message({
         title: req.body.title,
         timestamp: new Date(),
         text: req.body.text,
         user: userId,
+        username: user.username,
       });
 
       await message.save();
