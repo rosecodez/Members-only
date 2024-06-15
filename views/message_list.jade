@@ -2,11 +2,12 @@ extends layout
 
 block content
   h1 All messages
-  ul
+  ul.ul
     each message in messageList
       li.messageList
-        p Title: #{message.title} 
-        p Posted on: #{message.timestamp}
-        p Text: #{message.text} 
-        p User: #{message.username}
+        p.messageListFirstChild #{message.title} 
+        p.messageListSecondChild #{message.text}
+        p.messageListThirdChild 
+          i.messageListFourthChild #{message.username},
+          |  #{message.timestamp}
         br

@@ -1,8 +1,9 @@
 extends layout
 
 block content
-  h2 Your profile
-  h4 #{user.firstName} #{user.lastName} #{user.username}, #{user.membershipStatus} 
+  h3 #{user.firstName} #{user.lastName} #{user.username}, #{user.membershipStatus}
+  br
+  h4 Your profile
   p
     h3= title
     p First name: #{user.firstName}

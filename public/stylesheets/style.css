@@ -12,12 +12,31 @@ ul {
   gap: 10px;
   flex-wrap: wrap;
   flex-direction: column;
-  max-width: 550px;
+  padding-left: 0px
 }
+
 .messageList {
   background-color: #068affb5;
   padding-top: 20px;
   padding-left: 20px;
   list-style-type: none;
   border-radius: 25px;
+}
+
+.messageListFirstChild {
+  font-size: 26px;
+}
+.messageListSecondChild {
+  font-size: 23px;
+}
+.messageListThirdChild{
+  font-size: 15px;
+}
+.messageListFourthChild {
+  font-size: 19px;
+}
+
+
+.col-sm-10 {
+  padding-top: 20px;
 }
