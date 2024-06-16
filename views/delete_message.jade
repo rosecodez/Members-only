@@ -1,0 +1,7 @@
+extends layout
+
+block content
+  h1 Delete Message
+  p Are you sure you want to delete the message?
+  form(action='/members-only/messages/' + message._id + '/delete', method='POST')
+    button.btn.btn-danger(type='submit') Delete

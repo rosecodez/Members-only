@@ -7,7 +7,5 @@ block content
       li.messageList
         p.messageListFirstChild #{message.title} 
         p.messageListSecondChild #{message.text}
-        if user && user.admin === true
-          form(action="/delete" method="POST")
-            button.btn.btn-primary(type="submit") Delete
+        
         br

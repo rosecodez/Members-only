@@ -11,7 +11,7 @@ block content
           i.messageListFourthChild #{message.username},
           | #{message.timestamp_formatted}
         if user && user.admin === true
-          form(action="/delete" method="POST")
-            button.btn.btn-primary(type="submit") Delete
-          
-        br
+          p
+            a.btn.btn-primary(href='/members-only/messages/' + message._id + '/delete', role='button') Delete
+
+  br

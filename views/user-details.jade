@@ -1,7 +1,7 @@
 extends layout
 
 block content
-  h3 #{user.firstName} #{user.lastName} #{user.username}, #{user.membershipStatus}
+  h3 Hello, #{user.username}!
   br
   h4 Your profile
   p
@@ -9,9 +9,10 @@ block content
     p First name: #{user.firstName}
     p Last name: #{user.lastName}
     p Username: #{user.username}
-    p Membership status: #{user.membershipStatus}
     p Admin: #{user.admin ? 'Yes' : 'No'}
     a.user-details-links(href='/members-only/new-message') Create new message
-    p Would you like to join our club?
+
+    br
+    br
     a.user-details-links(href='/members-only/log-out') Log out
     

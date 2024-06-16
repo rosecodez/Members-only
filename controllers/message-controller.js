@@ -60,3 +60,20 @@ exports.message_list = asyncHandler(async (req, res, next) => {
     next(err);
   }
 });
+
+exports.message_delete_get = asyncHandler(async (req, res, next) => {
+  const message = await Message.findById(req.params.id);
+
+  if (!message) {
+    const err = new Error("Message not found");
+    err.status = 404;
+    return next(err);
+  }
+
+  res.render("delete_message", { message });
+});
+
+exports.message_delete_post = asyncHandler(async (req, res, next) => {
+  await Message.findByIdAndDelete(req.params.id);
+  res.redirect("/members-only/message-list");
+});
