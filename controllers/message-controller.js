@@ -42,7 +42,21 @@ exports.message_create_post = [
 ];
 
 exports.message_list = asyncHandler(async (req, res, next) => {
-  const allMessages = await Message.find().sort({ timestamp: 1 }).exec();
+  try {
+    const allMessages = await Message.find().sort({ timestamp: 1 }).exec();
 
-  res.render("message_list", { messageList: allMessages });
+    if (req.isAuthenticated()) {
+      res.render("message_list_members", {
+        messageList: allMessages,
+        user: req.user,
+      });
+    } else {
+      res.render("message_list_non_members", {
+        messageList: allMessages,
+        user: null,
+      });
+    }
+  } catch (err) {
+    next(err);
+  }
 });

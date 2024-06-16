@@ -10,6 +10,8 @@ block content
     p Last name: #{user.lastName}
     p Username: #{user.username}
     p Membership status: #{user.membershipStatus}
+    p Admin: #{user.admin ? 'Yes' : 'No'}
     a.user-details-links(href='/members-only/new-message') Create new message
     p Would you like to join our club?
     a.user-details-links(href='/members-only/log-out') Log out
+    
