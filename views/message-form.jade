@@ -1,10 +1,10 @@
 extends layout
 
 block content
-  h6 New message
+  h5 New message
   form(method="POST", action="/members-only/new-message")
     div.form-group
-      label(for="title") Title
+      label(for="title")  Title
       input.form-control(type='text', id='title', placeholder="Title", name="title" required="true")
       
       label(for="message") Message

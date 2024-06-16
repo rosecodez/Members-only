@@ -20,11 +20,11 @@ exports.user_create_post = [
     .trim()
     .isLength({ min: 1 })
     .escape(),
-  body("username", "Username must be specified")
+  body("username", "Username must be specified and at least 6 characters long")
     .trim()
     .isLength({ min: 6 })
     .escape(),
-  body("password", "Password must be specified")
+  body("password", "Password must be specified and at least 10 characters long")
     .trim()
     .isLength({ min: 10 })
     .escape(),
@@ -55,6 +55,7 @@ exports.user_create_post = [
         username: req.body.username,
         password: hashedPassword,
         membershipStatus: "non-member",
+        admin: req.body.admin === "true",
       });
 
       await user.save();

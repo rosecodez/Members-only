@@ -4,21 +4,30 @@ block content
     h1 Sign up
     h6 Already have an account? 
         a#log-in(href='/members-only/log-in') Log in
+
     form(method="POST", action="/members-only/sign-up")
         div.h5.sign-up
             label.form-label(for="firstName") First name
             input.form-control#firstName(type='text', placeholder="First name", name="firstName", value=(user && user.firstName) ? user.firstName : '')
+
         div.h5.sign-up
             label.form-label(for="lastName") Last name
             input.form-control#lastName(type='text', placeholder="Last name", name="lastName", value=(user && user.lastName) ? user.lastName : '')
+
         div.h5.sign-up
             label.form-label(for="username") Username
             input.form-control#username(type='text', placeholder="Username", name="username", value=(user && user.username) ? user.username : '')
+
         div.h5.sign-up
             label.form-label(for="password") Password
             input.form-control#password(type='password', placeholder="Password", name="password")
-        button(type="submit") Sign up
-        
+
+        div.h5.sign-up 
+            label.form-label(for="admin") Admin
+            input.form-control#admin(type="checkbox", name="admin", value="true")
+
+        button.btn.btn-primary(type="submit") Sign up
+
     if errors && errors.length > 0
         ul.text-danger
             each error in errors
